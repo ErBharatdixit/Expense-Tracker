@@ -13,7 +13,29 @@ export default function SignUp() {
   const[error,setError] = useState(null);
 
   const Navigate = useNavigate();
-  const handleSignUp = async(e)=>{}
+  const handleSignUp = async(e)=>{
+    e.preventDefault();
+
+    let profileImageUrl = "";
+
+    if(!fullName){
+      setError("please Enter your name");
+      return;
+    }
+    if(!validateEmail(email)){
+      setError("please enter your valid email address... ")
+      return;
+    }
+
+    if(!password){
+      setError("Please enter a your valid password....")
+    }
+
+    setError("");
+
+    // SignUp Api call
+
+  }
   return (
     <Authlayout>
       <div className='lg:w-[100%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center'>
@@ -53,6 +75,17 @@ export default function SignUp() {
                  </div>
 
       </div>
+       {error && <p className='text-red-500 text-xs pb-2.5'>{error}</p>}
+      
+                  <button type="submit" className='btn-primary'>
+                    SIGN UP
+                  </button>
+      
+                  <p className='text-[13px] text-slate-800 mt-3'>Already have an account?{" "}
+                  <Link className="font-medium text-primary underline" to="/login">LogIn
+                  </Link>
+                </p>
+                  
 
     </form>
 
