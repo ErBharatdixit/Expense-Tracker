@@ -1,19 +1,15 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import Authlayout from '../../components/layout/Authlayout'
 import {useNavigate} from 'react-router-dom';
 import Input from '../../components/inputs/Input';
 import { Link } from 'react-router-dom';
 import { validateEmail } from ".././../utils/helper";
-import axiosInstance from '../../utils/axiosInstance';
-import { API_PATHS } from '../../utils/apiPaths';
-import { UserContext } from '../../context/userContext';
 
 export default function Login() {
 
   const [email,setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const {updateUser} = useContext(UserContext)
   const navigate = useNavigate();
 
   // handle log in form 
@@ -30,62 +26,9 @@ export default function Login() {
     }
     setError(" ")
 
-    //Login API Call  
-        // try {
-        //   const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN,{
-        //     email,
-        //     password,
-        //   });
-        //   const {token,user} = response.data;
-
-        //   if(token){
-        //     localStorage.setItem("token",token);
-        //     navigate("/dashboard");
-        //   }
-          
-        // } catch (error) {
-
-        //   if(error.response && error.response.data.message){
-        //     setError(error.response.data.message);
-        //   }else{
-        //     setError("Something went wrong. Please try again.")
-        //   }
-          
-        // }
-
-    try {
-      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
-        email,
-        password,
-      });
-      const { token, user } = response.data;
-
-      if (token) {
-        localStorage.setItem("token", token);
-        updateUser(user)
-        navigate("/dashboard");
-      }
-    } catch (error) {
-      if (error.response) {
-        const { status, data } = error.response;
-        // Handle unauthorized errors and general errors distinctly.  
-        if (status === 401) {
-          setError(data.message); // Show specific error messages  
-        } else {
-          setError("Something went wrong. Please try again.");
-        }
-      } else {
-        setError("Something went wrong. Please try again.");
-      }
-    }  
-
-
-
-
+    // Login API Call  
 
   }
-
-    
   return (
     <Authlayout>
       <div className=' lg:w-[to-70%] h-3/4 md:h-full flex flex-col justify-center'>

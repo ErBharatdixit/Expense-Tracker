@@ -5,10 +5,8 @@ import SignUp from "./pages/Auth/SignUp"
 import Home from "./pages/Dashboard/Home"
 import Income from "./pages/Dashboard/Income"
 import Expense from "./pages/Dashboard/Expense"
-import UserProvider from './context/userContext';
 export default function App() {
   return (
-    <UserProvider>
    <div>
     <Router>
    <Routes>
@@ -26,7 +24,6 @@ export default function App() {
     </Router>
 
    </div>
-    </UserProvider>
   )
 }
 
